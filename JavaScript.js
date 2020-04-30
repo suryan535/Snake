@@ -49,11 +49,13 @@ let touchEndY;
 document.addEventListener('touchstart', function (event) {
   touchStartX = event.screenX;
   touchStartY = event.screenY;
+  event.preventDefault();
 });
 
 document.addEventListener('touchend', function (event) {
   touchEndX = event.screenX;
   touchEndY = event.screenY;
+  event.preventDefault();
   swipedirection();
 });
 
