@@ -41,13 +41,13 @@ function direction(event) {
 }
 
 //Swipes 
-var touchStartX;
-var touchEndX;
-var touchStartY;
-var touchEndY;
+let touchStartX;
+let touchEndX;
+let touchStartY;
+let touchEndY;
 
 document.addEventListener('touchstart', function (event) {
-  touchstartX = event.screenX;
+  touchStartX = event.screenX;
   touchStartY = event.screenY;
 });
 
