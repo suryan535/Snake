@@ -2,12 +2,8 @@ const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
 
 let score = 0;
-//const foodImg = new Image();
-//foodImg.src = "food.jpg";
 
 let speed = 100;
-//const ground = new Image();
-//ground.src = "background.jpg";
 
 const box = 32;
 let snake = [];
@@ -188,7 +184,6 @@ function collision(head, array) {
 
 function draw() {
 
-  // ctx.drawImage(ground, 0, 0);
   ctx.fillStyle = "lightblue";
   ctx.fillRect(0, 0, 680, 680);
 
@@ -206,7 +201,6 @@ function draw() {
     ctx.fillRect(obstacle[i].x, obstacle[i].y, box, box);
   }
 
-  // ctx.drawImage(foodImg, food.x, food.y);
   ctx.fillStyle = "blue";
   ctx.fillRect(food.x, food.y, box, box);
 
