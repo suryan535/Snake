@@ -1,0 +1,27 @@
+
+.back {
+    background-color: green;
+    width: 700px;
+    height: 700px;
+    padding: 10px;
+    margin: 70px auto;
+    text-align:center;
+  }
+
+  .Control
+  {
+      text-align:center;
+      padding:20px;
+  }
+
+  .top-btn,.middle-btn,.bottom-btn
+  {
+      display:flex;
+      justify-content: space-around;
+  }
+
+  button
+  {
+      padding:10px;
+      font-size:20px;
+  }
