@@ -2,11 +2,12 @@ const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
 
 let score = 0;
-const foodImg = new Image();
-foodImg.src = "food.jpg";
+//const foodImg = new Image();
+//foodImg.src = "food.jpg";
 
-const ground = new Image();
-ground.src = "background.jpg";
+let speed = 100;
+//const ground = new Image();
+//ground.src = "background.jpg";
 
 const box = 32;
 let snake = [];
@@ -16,9 +17,89 @@ snake[0] = {
 };
 
 let food = {
-  x: Math.floor(Math.random() * 17 + 1) * box,
-  y: Math.floor(Math.random() * 15 + 3) * box,
+  x: 5 * box,
+  y: 14 * box,
 };
+
+//Obstacle
+
+let obstacle = [];
+obstacle[0] =
+{
+  x: 6 * box,
+  y: 7 * box,
+};
+for (let i = 0; i < 6; i++) {
+  obstacle[i] =
+  {
+    x: (6 + i) * box,
+    y: 7 * box,
+  };
+}
+
+for (let i = 6; i < 10; i++) {
+  obstacle[i] =
+  {
+    x: 11 * box,
+    y: (13 - i) * box,
+  };
+}
+
+for (let i = 0; i < 5; i++) {
+  obstacle[i + 10] =
+  {
+    x: 15 * box,
+    y: (12 + i) * box,
+
+  };
+}
+
+for (let i = 0; i < 5; i++) {
+  obstacle[i + 14] =
+  {
+    x: (15 - i) * box,
+    y: 16 * box,
+  };
+}
+
+function obstacleclear(head, array) {
+  for (let i = 0; i < obstacle.length; i++) {
+    if (obstacle[i].x == head.x && obstacle[i].y == head.y) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function random() {
+  obstacle = [];
+  for (let i = 0; i < 10; i++) {
+    obstacle[i] =
+    {
+      x: Math.floor(Math.random() * 20 + 1) * box,
+      y: Math.floor(Math.random() * 20 + 1) * box,
+    }
+  }
+}
+
+//food Clear
+
+function foodclear() {
+  for (let i = 0; i < obstacle.length; i++) {
+    if (obstacle[i].x == food.x && obstacle[i].y == food.y) {
+      return true;
+    }
+  }
+  return false;
+}
+//SPeed control
+
+function speedup() {
+  speed = speed - 30;
+}
+function speeddown() {
+  speed = speed + 30;
+}
 
 //Keypress
 
@@ -40,22 +121,42 @@ function direction(event) {
   }
 }
 
+//BUTTON Responses
+function turntop() {
+  if (d != "DOWN") {
+    d = "UP";
+  }
+}
+function turnleft() {
+  if (d != "RIGHT") {
+    d = "LEFT";
+  }
+}
+function turnright() {
+  if (d != "LEFT") {
+    d = "RIGHT";
+  }
+}
+function turndown() {
+  if (d != "TOP") {
+    d = "DOWN";
+  }
+}
+
 //Swipes 
-let touchStartX;
-let touchEndX;
-let touchStartY;
-let touchEndY;
+var touchStartX;
+var touchEndX;
+var touchStartY;
+var touchEndY;
 
 document.addEventListener('touchstart', function (event) {
-  touchStartX = event.screenX;
+  touchstartX = event.screenX;
   touchStartY = event.screenY;
-  event.preventDefault();
 });
 
 document.addEventListener('touchend', function (event) {
   touchEndX = event.screenX;
   touchEndY = event.screenY;
-  event.preventDefault();
   swipedirection();
 });
 
@@ -84,9 +185,12 @@ function collision(head, array) {
 }
 
 
+
 function draw() {
 
-  ctx.drawImage(ground, 0, 0);
+  // ctx.drawImage(ground, 0, 0);
+  ctx.fillStyle = "lightblue";
+  ctx.fillRect(0, 0, 680, 680);
 
   for (let i = 0; i < snake.length; i++) {
     ctx.fillStyle = (i == 0) ? "red" : "white";
@@ -96,7 +200,15 @@ function draw() {
     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
   }
 
-  ctx.drawImage(foodImg, food.x, food.y);
+  //Obstacles
+  for (let i = 0; i < obstacle.length; i++) {
+    ctx.fillStyle = "black";
+    ctx.fillRect(obstacle[i].x, obstacle[i].y, box, box);
+  }
+
+  // ctx.drawImage(foodImg, food.x, food.y);
+  ctx.fillStyle = "blue";
+  ctx.fillRect(food.x, food.y, box, box);
 
   //Getting old headp pos
 
@@ -113,9 +225,15 @@ function draw() {
   if (SnakeX == food.x && SnakeY == food.y) {
     score++;
     food = {
-      x: Math.floor(Math.random() * 17 + 1) * box,
-      y: Math.floor(Math.random() * 15 + 3) * box
+      x: Math.floor(Math.random() * 20 + 1) * box,
+      y: Math.floor(Math.random() * 20 + 1) * box
     };
+    while (foodclear()) {
+      food = {
+        x: Math.floor(Math.random() * 20 + 1) * box,
+        y: Math.floor(Math.random() * 20 + 1) * box
+      };
+    }
 
   }
   else {
@@ -130,7 +248,7 @@ function draw() {
 
 
   //Game End
-  if (SnakeX < box || SnakeX > 20 * box || SnakeY < 3 * box || SnakeY > 20 * box || collision(newHead, snake)) {
+  if (SnakeX < 0 || SnakeX > 680 || SnakeY < 0 || SnakeY > 680 || collision(newHead, snake) || obstacleclear(newHead, snake)) {
     clearInterval(game);
   }
 
@@ -138,9 +256,10 @@ function draw() {
 
   snake.unshift(newHead);
 
-  ctx.fillStyle = "white";
-  ctx.font = "45px Changa one";
-  ctx.fillText(score, 2 * box, 1.6 * box);
+  ctx.fillStyle = "black";
+  ctx.font = "50px Changa one";
+  ctx.fillText(score, 0.6 * box, 1.3 * box);
 }
 
-let game = setInterval(draw, 100);
+let game = setInterval(draw, speed);
+
