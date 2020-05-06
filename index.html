@@ -2,18 +2,21 @@
 
 <head>
   <title>Snake Xenzia</title>
-  <style>
-    .back {
-      background-color: green;
-      width: 700px;
-      height: 700px;
-      padding: 10px;
-      margin: 70px auto;
-    }
-  </style>
+  <link rel="stylesheet" href="main.css">
 </head>
+<div class="speedcontrol">
+  <button class="speedup" onclick="speedup()">INCREASE</button>
+  <button class="speeddown" onclick="speeddown()">DECREASE</button>
+  <button class="random" onclick="random()">Random maze</button>
+</div>
 <div class="back">
   <canvas id="snake" width="680px" height="680px"></canvas>
+</div>
+<div class="Control">
+  <div class="top-btn"><button class="top" onclick="turntop()">&#129093;</button></div>
+  <div class="middle-btn"><button class="left" onclick="turnleft()">&#129092;</button>
+    <button class="right" onclick="turnright()">&#129094;</button></div>
+  <div class="bottom-btn"><button class="down" onclick="turndown()">&#129095;</button></div>
 </div>
 <script src="JavaScript.js"></script>
 
