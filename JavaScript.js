@@ -146,15 +146,17 @@ var touchStartY;
 var touchEndY;
 
 document.addEventListener('touchstart', function (event) {
-  touchstartX = event.screenX;
-  touchStartY = event.screenY;
-},true);
+  touchstartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+  event.preventDefault();
+}, true);
 
 document.addEventListener('touchend', function (event) {
-  touchEndX = event.screenX;
-  touchEndY = event.screenY;
+  touchEndX = event.changedTouches[0].clientX;
+  touchEndY = event.changedTouches[0].clientY;
+  event.preventDefault();
   swipedirection();
-},true);
+}, true);
 
 function swipedirection() {
   if ((touchEndX > touchStartX) && d != "LEFT") {
