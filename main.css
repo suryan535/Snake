@@ -1,4 +1,7 @@
-
+html
+{
+    background-color: rgb(115, 224, 228);
+}
 .back {
     background-color: green;
     width: 700px;
