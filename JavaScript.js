@@ -148,13 +148,13 @@ var touchEndY;
 document.addEventListener('touchstart', function (event) {
   touchstartX = event.screenX;
   touchStartY = event.screenY;
-});
+},true);
 
 document.addEventListener('touchend', function (event) {
   touchEndX = event.screenX;
   touchEndY = event.screenY;
   swipedirection();
-});
+},true);
 
 function swipedirection() {
   if ((touchEndX > touchStartX) && d != "LEFT") {
