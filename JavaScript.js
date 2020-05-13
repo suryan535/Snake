@@ -113,10 +113,10 @@ function foodclear() {
 //SPeed control
 
 function speedup() {
-  game = setInterval(draw, 80);
+  speed-=10;
 }
 function speeddown() {
-  game = setInterval(draw, 120);
+ speed+=10;
 }
 
 //Keypress
@@ -173,23 +173,16 @@ let Ychange;
 document.addEventListener('touchstart', function (event) {
   touchStartX = event.touches[0].clientX;
   touchStartY = event.touches[0].clientY;
-  console.log(touchStartX);
-  console.log(touchStartY);
-  event.preventDefault();
 }, true);
 
 document.addEventListener('touchmove', function (event) {
   touchEndX = event.touches[0].clientX;
   touchEndY = event.touches[0].clientY;
-  console.log(touchEndX);
-  console.log(touchEndY);
-   event.preventDefault();
 }, true);
 
 
 document.addEventListener('touchend', function (event) {
   turn.play();
-  event.preventDefault();
   swipedirection();
 }, true);
 
