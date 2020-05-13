@@ -16,7 +16,7 @@ html
     display:flex;
     justify-content:space-around;
 }
-  .Control
+ /* .Control
   {
       text-align:center;
       padding:20px;
@@ -28,7 +28,7 @@ html
       display:flex;
       justify-content: space-around;
   }
-
+*/
   button
   {
       padding:15px;
