@@ -162,7 +162,6 @@ function turndown() {
   }
 }
 
-
 //Swipes 
 let touchStartX;
 let touchEndX;
@@ -172,19 +171,24 @@ let Xchange;
 let Ychange;
 
 document.addEventListener('touchstart', function (event) {
-  touchstartX = event.touches[0].clientX;
+  touchStartX = event.touches[0].clientX;
   touchStartY = event.touches[0].clientY;
+  console.log(touchStartX);
+  console.log(touchStartY);
   event.preventDefault();
 }, true);
 
 document.addEventListener('touchmove', function (event) {
   touchEndX = event.touches[0].clientX;
   touchEndY = event.touches[0].clientY;
+  console.log(touchEndX);
+  console.log(touchEndY);
+   event.preventDefault();
 }, true);
 
 
 document.addEventListener('touchend', function (event) {
-
+  turn.play();
   event.preventDefault();
   swipedirection();
 }, true);
@@ -193,6 +197,9 @@ function swipedirection() {
 
   Xchange = touchEndX - touchStartX;
   Ychange = touchEndY - touchStartX;
+  
+  console.log(Xchange);
+  console.log(Ychange);
   if (Xchange > 0 && d != "LEFT") {
     d = "RIGHT";
   }
